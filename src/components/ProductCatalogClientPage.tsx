@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Box, Stack, TextField, Badge, Typography } from "@mui/material";
+import { Box, Stack, TextField, Badge, Typography, Grid } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { customerThemes } from "@/utils/theme";
 import ProductCard, { Product } from "@/components/ProductCard";
@@ -20,16 +20,17 @@ export default function ProductCatalogClientPage({
 }: ProductCatalogClientPageProps) {
   const theme = customerThemes[customerKey ?? ""];
 
- const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const search = useSelector((state: AppState) => state.search.keyword);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearchKeyword(e.target.value));
   };
 
-  const filteredProducts = products.filter((p: any) =>
-    p.name.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredProducts = (products || []).filter((product) => {
+    if (!product?.name) return false;
+    return product.name.toLowerCase().includes(search.toLowerCase());
+  });
   const cartItems = useSelector((state: AppState) => state.cart.items);
   const totalItems = Object.values(cartItems).reduce(
     (sum, qty) => sum + qty,
@@ -39,12 +40,12 @@ export default function ProductCatalogClientPage({
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
       {/* Sticky Header */}
-      <Box 
-        sx={{ 
-          position: 'sticky', 
-          top: 0, 
-          zIndex: 10, 
-          backgroundColor: 'white', 
+      <Box
+        sx={{
+          position: 'sticky',
+          top: 0,
+          zIndex: 10,
+          backgroundColor: 'white',
           borderBottom: '1px solid #e0e0e0',
           p: 3,
           pb: 2
@@ -113,21 +114,16 @@ export default function ProductCatalogClientPage({
           pt: 2,
         }}
       >
-        <Box
-          sx={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-            gap: 2,
-          }}
-        >
+        <Grid container spacing={3}>
           {filteredProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              customerKey={customerKey}
-            />
+            <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={product.id}>
+              <ProductCard
+                product={product}
+                customerKey={customerKey}
+              />
+            </Grid>
           ))}
-        </Box>
+        </Grid>
       </Box>
     </Box>
   );
