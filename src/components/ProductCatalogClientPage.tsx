@@ -37,74 +37,97 @@ export default function ProductCatalogClientPage({
   );
 
   return (
-    <Box sx={{ p: 3,height:'100vh',overflowY:'auto'}}>
-      <Stack
-        direction="row"
-        justifyContent="space-between"
-        alignItems="center"
-        mb={3}
-      >
-        <Typography variant="h4" sx={{ color: theme?.logoPrimaryColor }}>
-          Product Catalog
-        </Typography>
-        <Badge
-          badgeContent={totalItems}
-          sx={{
-            "& .MuiBadge-badge": {
-              fontSize: "14px",
-              height: "24px",
-              minWidth: "24px",
-            },
-            cursor: "pointer",
-            mr: 4,
-          }}
-        >
-          <ShoppingCartIcon
-            fontSize="large"
-            sx={{ color: theme?.logoPrimaryColor }}
-          />
-        </Badge>
-      </Stack>
-
-      <TextField
-        placeholder="Search products..."
-        variant="outlined"
-        size="small"
-        value={search}
-        onChange={handleSearchChange}
-        sx={{
-          mb: 3,
-          width: "70%",
-          "& .MuiOutlinedInput-root": {
-            borderRadius: 2,
-            "& fieldset": {
-              borderColor: theme?.logoPrimaryColor,
-              borderWidth: "2px",
-            },
-            "&:hover fieldset": {
-              borderColor: theme.logoPrimaryColor,
-            },
-            "&.Mui-focused fieldset": {
-              borderColor: theme?.logoPrimaryColor,
-            },
-          },
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+      {/* Sticky Header */}
+      <Box 
+        sx={{ 
+          position: 'sticky', 
+          top: 0, 
+          zIndex: 10, 
+          backgroundColor: 'white', 
+          borderBottom: '1px solid #e0e0e0',
+          p: 3,
+          pb: 2
         }}
-      />
+      >
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          mb={3}
+        >
+          <Typography variant="h4" sx={{ color: theme?.logoPrimaryColor }}>
+            Product Catalog
+          </Typography>
+          <Badge
+            badgeContent={totalItems}
+            sx={{
+              "& .MuiBadge-badge": {
+                fontSize: "14px",
+                height: "24px",
+                minWidth: "24px",
+              },
+              cursor: "pointer",
+              mr: 4,
+            }}
+          >
+            <ShoppingCartIcon
+              fontSize="large"
+              sx={{ color: theme?.logoPrimaryColor }}
+            />
+          </Badge>
+        </Stack>
 
+        {/* Sticky Search */}
+        <TextField
+          placeholder="Search products..."
+          variant="outlined"
+          size="small"
+          value={search}
+          onChange={handleSearchChange}
+          sx={{
+            width: "70%",
+            "& .MuiOutlinedInput-root": {
+              borderRadius: 2,
+              "& fieldset": {
+                borderColor: theme?.logoPrimaryColor,
+                borderWidth: "2px",
+              },
+              "&:hover fieldset": {
+                borderColor: theme.logoPrimaryColor,
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: theme?.logoPrimaryColor,
+              },
+            },
+          }}
+        />
+      </Box>
+
+      {/* Scrollable Products Section */}
       <Box
         sx={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-          gap: 2,
+          flex: 1,
+          overflow: 'auto',
+          p: 3,
+          pt: 2,
         }}
       >
-        {filteredProducts.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            customerKey={customerKey}
-          />
-        ))}
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+            gap: 2,
+          }}
+        >
+          {filteredProducts.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              customerKey={customerKey}
+            />
+          ))}
+        </Box>
       </Box>
     </Box>
   );
