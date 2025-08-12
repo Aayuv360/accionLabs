@@ -8,13 +8,13 @@ type Props = {
   children: ReactNode;
 };
 
-function getCustomerKeyFromCookies(): string {
-  const cookieStore = cookies();
+async function getCustomerKeyFromCookies(): Promise<string> {
+  const cookieStore = await cookies();
   return cookieStore.get('session_customer')?.value || '';
 }
 
-export default function DashboardLayout({ children }: Props) {
-  const customerKey = getCustomerKeyFromCookies();
+export default async function DashboardLayout({ children }: Props) {
+  const customerKey = await getCustomerKeyFromCookies();
 
   if (!customerKey) {
     redirect("/login");

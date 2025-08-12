@@ -3,13 +3,13 @@ import React from "react";
 import { cookies } from "next/headers";
 import HistoryClientPage from "@/components/HistoryClientPage";
 
-function getCustomerKeyFromCookies(): string {
-  const cookieStore = cookies();
+async function getCustomerKeyFromCookies(): Promise<string> {
+  const cookieStore = await cookies();
   return cookieStore.get('session_customer')?.value || '';
 }
 
-export default function History() {
-  const customerKey = getCustomerKeyFromCookies();
+export default async function History() {
+  const customerKey = await getCustomerKeyFromCookies();
   
   return <HistoryClientPage customerKey={customerKey} />;
 }
