@@ -1,14 +1,7 @@
-
-'use client';
+"use client";
 
 import React from "react";
-import {
-  Box,
-  Stack,
-  TextField,
-  Badge,
-  Typography,
-} from "@mui/material";
+import { Box, Stack, TextField, Badge, Typography } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { customerThemes } from "@/utils/theme";
 import ProductCard, { Product } from "@/components/ProductCard";
@@ -99,7 +92,9 @@ interface ProductCatalogClientPageProps {
   customerKey: string;
 }
 
-export default function ProductCatalogClientPage({ customerKey }: ProductCatalogClientPageProps) {
+export default function ProductCatalogClientPage({
+  customerKey,
+}: ProductCatalogClientPageProps) {
   const theme = customerThemes[customerKey ?? ""];
   const store = makeStore();
   const state = store.getState();
@@ -130,17 +125,48 @@ export default function ProductCatalogClientPage({ customerKey }: ProductCatalog
         <Typography variant="h4" sx={{ color: theme?.logoPrimaryColor }}>
           Product Catalog
         </Typography>
-        <Badge badgeContent={totalItems} color="primary">
-          <ShoppingCartIcon />
+        <Badge
+          badgeContent={totalItems}
+          sx={{
+            "& .MuiBadge-badge": {
+              fontSize: "14px",
+              height: "24px",
+              minWidth: "24px",
+            },
+            cursor: "pointer",
+            mr: 4,
+          }}
+        >
+          <ShoppingCartIcon
+            fontSize="large"
+            sx={{ color: theme?.logoPrimaryColor }}
+          />
         </Badge>
       </Stack>
 
       <TextField
-        fullWidth
         placeholder="Search products..."
+        variant="outlined"
+        size="small"
         value={search}
         onChange={handleSearchChange}
-        sx={{ mb: 3 }}
+        sx={{
+          mb: 3,
+          width: "70%",
+          "& .MuiOutlinedInput-root": {
+            borderRadius: 2,
+            "& fieldset": {
+              borderColor: theme?.logoPrimaryColor,
+              borderWidth: "2px",
+            },
+            "&:hover fieldset": {
+              borderColor: theme.logoPrimaryColor,
+            },
+            "&.Mui-focused fieldset": {
+              borderColor: theme?.logoPrimaryColor,
+            },
+          },
+        }}
       />
 
       <Box
@@ -151,7 +177,11 @@ export default function ProductCatalogClientPage({ customerKey }: ProductCatalog
         }}
       >
         {filteredProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard
+            key={product.id}
+            product={product}
+            customerKey={customerKey}
+          />
         ))}
       </Box>
     </Box>
