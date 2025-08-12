@@ -13,14 +13,15 @@ type Props = {
 };
 
 export default function DashboardPage({ children }: Props) {
-  const [customerKey, setCustomerKey] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+  // const [customerKey, setCustomerKey] = useState<string | null>(null);
+  // const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const key = getCustomerKeyFromCookies();
-    setCustomerKey(key);
-    setLoading(false);
-  }, []);
+  // useEffect(() => {
+  //   const key = getCustomerKeyFromCookies();
+  //   setCustomerKey(key);
+  //   setLoading(false);
+  // }, []);
+  const customerKey='globex'
 
   const theme = customerThemes[customerKey ?? ""];
   const customerName = theme?.name ?? "";
@@ -28,14 +29,6 @@ export default function DashboardPage({ children }: Props) {
   const logoUrl = theme?.logoUrl ?? "";
   const router = usePathname();
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (!customerKey) {
-    window.location.href = "/login";
-    return null;
-  }
 
   const navLinks = [
     {

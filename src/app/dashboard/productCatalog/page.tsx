@@ -12,9 +12,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { customerThemes } from "@/utils/theme";
 import ProductCard, { Product } from "@/components/ProductCard";
 import { setSearchKeyword } from "@/store/slices/searchSlice";
-import { useEffect, useState } from "react";
-import { getCustomerKeyFromCookies } from "@/lib/auth";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { makeStore } from "@/store";
 
 const mockProducts: Product[] = [
   {
@@ -98,129 +96,123 @@ const mockProducts: Product[] = [
 ];
 
 export default function productCatalog() {
-    const [customerKey, setCustomerKey] = useState<string | null>(null);
-    const [loading, setLoading] = useState(true);
+    const customerKey='globex'
 
-    useEffect(() => {
-        const key = getCustomerKeyFromCookies();
-        setCustomerKey(key);
-        setLoading(false);
-    }, []);
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    if (!customerKey) {
-        window.location.href = "/login";
-        return null;
-    }
-
-    const theme = customerThemes[customerKey];
-    const dispatch = useAppDispatch();
-    const search = useAppSelector((state) => state.search.keyword);
-    const cartItems = useAppSelector((state) => state.cart.items);
-
-    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(setSearchKeyword(e.target.value));
+  if (!customerKey) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
     };
+  }
+  const theme = customerThemes[customerKey ?? ""];
+   const store = makeStore();
+  const state = store.getState();
 
-    const filteredProducts = mockProducts.filter((p: any) =>
-        p.name.toLowerCase().includes(search.toLowerCase())
-    );
-    
-    const totalItems = Object.values(cartItems).reduce(
-        (sum, qty) => sum + qty,
-        0
-    );
+  const search = state.search.keyword
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      store.dispatch(setSearchKeyword(e.target.value))
 
+  };
 
-    return (
-        <>
-            <Box
-                sx={{
-                    position: "sticky",
-                    top: 0,
-                    zIndex: 100,
-                    bgcolor: "#fff",
-                    py: 1,
-                    px: 3,
-                    borderBottom: "1px solid #e0e0e0",
-                }}
-            >
-                <Stack
-                    direction="row"
-                    alignItems="center"
-                    justifyContent="space-between"
-                    spacing={2}
-                >
-                    <TextField
-                        placeholder="Search products..."
-                        variant="outlined"
-                        size="small"
-                        value={search}
-                        onChange={handleSearchChange}
-                        sx={{
-                            width: "70%",
-                            "& .MuiOutlinedInput-root": {
-                                borderRadius: 2,
-                                "& fieldset": {
-                                    borderColor: theme?.logoPrimaryColor,
-                                    borderWidth: "2px",
-                                },
-                                "&:hover fieldset": {
-                                    borderColor: theme.logoPrimaryColor,
-                                },
-                                "&.Mui-focused fieldset": {
-                                    borderColor: theme?.logoPrimaryColor,
-                                },
-                            },
-                        }}
-                    />
-                    <Badge
-                        badgeContent={totalItems}
-                        sx={{
-                            "& .MuiBadge-badge": {
-                                fontSize: "14px",
-                                height: "24px",
-                                minWidth: "24px",
-                            },
-                            cursor: "pointer",
-                            mr: 4,
-                        }}
-                    >
-                        <ShoppingCartIcon
-                            fontSize="large"
-                            sx={{ color: theme?.logoPrimaryColor }}
-                        />
-                    </Badge>
-                </Stack>
+  const filteredProducts = mockProducts.filter((p: any) =>
+    p.name.toLowerCase().includes(search.toLowerCase())
+  );
+  const cartItems = state.cart.items
+  const totalItems = Object.values(cartItems).reduce(
+    (sum, qty) => sum + qty,
+    0
+  );
 
-                <Typography variant="body2" sx={{ mt: 1, ml: 1 }}>
-                    Showing {filteredProducts.length} products
-                </Typography>
-            </Box>
-            <Box
-                sx={{
-                    overflowY: "auto",
-                    p: 3,
-                }}
-            >
-                <div
-                    style={{
-                        display: "grid",
-                        gap: "24px",
-                        gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-                    }}
-                >
-                    {filteredProducts.map((product: any) => (
-                        <div key={product.id}>
-                            <ProductCard product={product} customerKey={customerKey} />
-                        </div>
-                    ))}
-                </div>
-            </Box>
-        </>
-    );
+ 
+
+  return (
+    <>
+      <Box
+        sx={{
+          position: "sticky",
+          top: 0,
+          zIndex: 100,
+          bgcolor: "#fff",
+          py: 1,
+          px: 3,
+          borderBottom: "1px solid #e0e0e0",
+        }}
+      >
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+          spacing={2}
+        >
+          <TextField
+            placeholder="Search products..."
+            variant="outlined"
+            size="small"
+            value={search}
+            onChange={handleSearchChange}
+            sx={{
+              width: "70%",
+              "& .MuiOutlinedInput-root": {
+                borderRadius: 2,
+                "& fieldset": {
+                  borderColor: theme?.logoPrimaryColor,
+                  borderWidth: "2px",
+                },
+                "&:hover fieldset": {
+                  borderColor: theme.logoPrimaryColor,
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: theme?.logoPrimaryColor,
+                },
+              },
+            }}
+          />
+          <Badge
+            badgeContent={totalItems}
+            sx={{
+              "& .MuiBadge-badge": {
+                fontSize: "14px",
+                height: "24px",
+                minWidth: "24px",
+              },
+              cursor: "pointer",
+              mr: 4,
+            }}
+          >
+            <ShoppingCartIcon
+              fontSize="large"
+              sx={{ color: theme?.logoPrimaryColor }}
+            />
+          </Badge>
+        </Stack>
+
+        <Typography variant="body2" sx={{ mt: 1, ml: 1 }}>
+          Showing {filteredProducts.length} products
+        </Typography>
+      </Box>
+      <Box
+        sx={{
+          overflowY: "auto",
+          p: 3,
+        }}
+      >
+        <div
+          style={{
+            display: "grid",
+            gap: "24px",
+            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+          }}
+        >
+          {filteredProducts.map((product: any) => (
+            <div key={product.id}>
+              <ProductCard product={product} customerKey={customerKey} />
+            </div>
+          ))}
+        </div>
+      </Box>
+    </>
+  );
 }

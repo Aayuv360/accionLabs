@@ -1,27 +1,20 @@
-"use client";
-import { useEffect, useState } from "react";
 import ProductHistory from "@/components/ProductHistory";
-import { getCustomerKeyFromCookies } from "@/lib/auth";
+
+type Props = {
+  customerKey: string | null;
+};
 
 export default function History() {
-  const [customerKey, setCustomerKey] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const key = getCustomerKeyFromCookies();
-    setCustomerKey(key);
-    setLoading(false);
-  }, []);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  const customerKey = "globex";
 
   if (!customerKey) {
-    window.location.href = "/login";
-    return null;
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
   }
-
   return (
     <div>
       <ProductHistory customerkey={customerKey} />
