@@ -82,27 +82,13 @@ const mockProducts = [
   },
 ];
 
-import { mockProducts } from "@/components/ProductStaticData";
-
 async function fetchProducts(customerId: number) {
-  try {
-    // For now, return mock products to avoid server-client state mismatch
-    // When API is ready, uncomment the fetch logic
-    const products = mockProducts.filter(product => {
-      // Filter products based on customer if needed
-      return true;
-    });
-    
-    return products;
-  } catch (error) {
-    console.error('Error fetching products:', error);
-    return mockProducts;
-  }
+  return mockProducts;
 }
 
 export default async function ProductCatalog() {
   const cookieStore = await cookies();
-  const customerKey = cookieStore.get('session_customer')?.value || '';
+  const customerKey = cookieStore.get("session_customer")?.value || "";
 
   const customerId = customerKey === "globex" ? 2 : 1;
   const products = await fetchProducts(customerId);
@@ -110,5 +96,10 @@ export default async function ProductCatalog() {
   // Ensure products is always an array to prevent filter errors
   const safeProducts = Array.isArray(products) ? products : [];
 
-  return <ProductCatalogClientPage customerKey={customerKey} products={safeProducts} />;
+  return (
+    <ProductCatalogClientPage
+      customerKey={customerKey}
+      products={safeProducts}
+    />
+  );
 }
