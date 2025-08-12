@@ -18,13 +18,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.__INITIAL_REDUX_STATE__ = ${JSON.stringify(initialReduxState)}`,
-          }}
-        />
-      </head>
+      <head></head>
       <body style={{ margin: 0 }}>
         <ClientProviders
           customerKey={customerKey}
