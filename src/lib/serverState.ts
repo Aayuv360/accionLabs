@@ -20,9 +20,9 @@ export function deserializeServerState(serializedState: string) {
 
 // Helper to ensure consistent state between server and client
 export function createHydrationSafeState(serverData: any) {
+  // Only return keys that match your Redux state structure
   return {
-    _hydrated: false,
-    _serverData: serverData,
-    ...serverData,
+    cart: serverData.cart || { items: [] },
+    search: serverData.search || { keyword: "" }
   };
 }

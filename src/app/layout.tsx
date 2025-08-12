@@ -14,7 +14,6 @@ export default async function RootLayout({
 
   // Create initial Redux state that's safe for hydration
   const initialReduxState = createHydrationSafeState({
-    customer: { customerKey },
     cart: { items: [] },
     search: { keyword: "" }
   });
