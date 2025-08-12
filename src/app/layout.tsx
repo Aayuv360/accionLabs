@@ -1,5 +1,3 @@
-
-"use client";
 //src/app/layout.tsx
 
 import * as React from "react";
@@ -20,16 +18,8 @@ const theme = createTheme({
 });
 
 function getCustomerKeyFromCookies(): string {
-  if (typeof window !== 'undefined') {
-    const cookieString = document.cookie;
-    const cookies = cookieString.split(';').reduce((acc, cookie) => {
-      const [key, value] = cookie.trim().split('=');
-      acc[key] = value;
-      return acc;
-    }, {} as Record<string, string>);
-    return cookies['session_customer'] || '';
-  }
-  return '';
+  const cookieStore = cookies();
+  return cookieStore.get('session_customer')?.value || '';
 }
 
 export default function RootLayout({
@@ -37,11 +27,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [customerKey, setCustomerKey] = React.useState('');
-
-  React.useEffect(() => {
-    setCustomerKey(getCustomerKeyFromCookies());
-  }, []);
+  const customerKey = getCustomerKeyFromCookies();
 
   return (
     <html lang="en">
