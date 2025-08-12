@@ -54,11 +54,20 @@ export default function DashboardClientLayout({ children, customerKey }: Props) 
       >
         <div style={{ marginBottom: "30px", textAlign: "center" }}>
           {logoUrl && (
-            <img
-              src={logoUrl}
-              alt={customerName}
-              style={{ height: "40px", marginBottom: "10px" }}
-            />
+            <Link href="/dashboard" style={{ textDecoration: "none" }}>
+              <img
+                src={logoUrl}
+                alt={customerName}
+                style={{ 
+                  height: "40px", 
+                  marginBottom: "10px",
+                  cursor: "pointer",
+                  transition: "opacity 0.2s ease"
+                }}
+                onMouseOver={(e) => e.target.style.opacity = "0.8"}
+                onMouseOut={(e) => e.target.style.opacity = "1"}
+              />
+            </Link>
           )}
           {/* <h3 style={{ color: primaryColor, margin: 0 }}>{customerName}</h3> */}
         </div>
