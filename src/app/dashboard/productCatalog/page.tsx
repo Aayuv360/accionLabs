@@ -95,17 +95,12 @@ const mockProducts: Product[] = [
   },
 ];
 
-export default function productCatalog() {
-    const customerKey='globex'
+'use client';
 
-  if (!customerKey) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
+import { useCustomer } from "@/contexts/CustomerContext";
+
+export default function productCatalog() {
+  const { customerKey } = useCustomer();
   const theme = customerThemes[customerKey ?? ""];
    const store = makeStore();
   const state = store.getState();
@@ -208,7 +203,7 @@ export default function productCatalog() {
         >
           {filteredProducts.map((product: any) => (
             <div key={product.id}>
-              <ProductCard product={product} customerKey={customerKey} />
+              <ProductCard product={product} />
             </div>
           ))}
         </div>

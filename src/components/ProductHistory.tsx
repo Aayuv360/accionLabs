@@ -1,16 +1,13 @@
-// src/components/Greeting.tsx
-import { useState } from "react";
+'use client';
+
 import ProductStaticData from "./ProductStaticData";
 import Typography from '@mui/material/Typography';
 import { customerThemes } from "@/utils/theme";
+import { useCustomer } from "@/contexts/CustomerContext";
 
-type Props = {
-  customerkey: string;
-};
-
-export default function ProductHistory({ customerkey }: Props) {
-  //const [likes, setLikes] = useState(0);
- const theme = customerThemes[customerkey];
+export default function ProductHistory() {
+  const { customerKey } = useCustomer();
+  const theme = customerThemes[customerKey];
  console.log("theme >>>>> :", theme);
   return (
     <div

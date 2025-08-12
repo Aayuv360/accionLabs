@@ -1,27 +1,27 @@
-'use client'
-import { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation"; 
 import { customerThemes } from "../../utils/theme";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import HistoryOutlinedIcon from "@mui/icons-material/HistoryOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import { getCustomerKeyFromCookies } from "@/lib/auth";
+import { getSessionCustomer } from "@/lib/auth";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import { CustomerProvider } from "@/contexts/CustomerContext";
 
 type Props = {
   children: ReactNode;
 };
 
 export default function DashboardPage({ children }: Props) {
-  // const [customerKey, setCustomerKey] = useState<string | null>(null);
-  // const [loading, setLoading] = useState(true);
+  const cookieStore = cookies();
+  const sessionCookie = cookieStore.get('session_customer');
+  const customerKey = sessionCookie?.value || null;
 
-  // useEffect(() => {
-  //   const key = getCustomerKeyFromCookies();
-  //   setCustomerKey(key);
-  //   setLoading(false);
-  // }, []);
-  const customerKey='globex'
+  if (!customerKey) {
+    redirect('/login');
+  }
 
   const theme = customerThemes[customerKey ?? ""];
   const customerName = theme?.name ?? "";
@@ -119,7 +119,9 @@ export default function DashboardPage({ children }: Props) {
           marginTop: "16px"
         }}
       >
-        {children}
+        <CustomerProvider customerKey={customerKey}>
+          {children}
+        </CustomerProvider>
       </div>
     </div>
   );

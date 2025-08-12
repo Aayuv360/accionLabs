@@ -50,3 +50,10 @@ export function getSessionCustomer(req: any): string | null {
   const cookies = req.headers.cookie ? parse(req.headers.cookie) : {};
   return cookies[COOKIE_NAME] || null;
 }
+
+export function getCustomerKeyFromServerCookies(): string | null {
+  const { cookies } = require('next/headers');
+  const cookieStore = cookies();
+  const sessionCookie = cookieStore.get(COOKIE_NAME);
+  return sessionCookie?.value || null;
+}

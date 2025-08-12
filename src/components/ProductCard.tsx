@@ -13,6 +13,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { customerThemes } from "@/utils/theme";
+import { useCustomer } from "@/contexts/CustomerContext";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "@/store/slices/cartSlice";
 import { AppState } from "@/store";
@@ -29,10 +30,10 @@ export interface Product {
 
 interface Props {
   product: Product;
-  customerKey: any;
 }
 
-export default function ProductCard({ product, customerKey }: Props) {
+export default function ProductCard({ product }: Props) {
+  const { customerKey } = useCustomer();
   const theme = customerThemes[customerKey ?? ""];
   const primaryColor = theme?.primaryColor ?? "";
 
