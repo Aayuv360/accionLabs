@@ -17,7 +17,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body suppressHydrationWarning={true}>
+      <body suppressHydrationWarning={true} style={{margin:0}}>
         <ClientProviders customerKey={customerKey}>
           {children}
         </ClientProviders>

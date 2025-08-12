@@ -12,7 +12,5 @@ export default function LogoutPage() {
     sameSite: "lax",
   });
 
- 
-
   redirect("/login");
 }
