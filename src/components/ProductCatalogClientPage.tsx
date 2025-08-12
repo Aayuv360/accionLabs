@@ -6,7 +6,8 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { customerThemes } from "@/utils/theme";
 import ProductCard, { Product } from "@/components/ProductCard";
 import { setSearchKeyword } from "@/store/slices/searchSlice";
-import { makeStore } from "@/store";
+import { AppState, makeStore } from "@/store";
+import { useDispatch, useSelector } from "react-redux";
 
 const mockProducts: Product[] = [
   {
@@ -96,19 +97,18 @@ export default function ProductCatalogClientPage({
   customerKey,
 }: ProductCatalogClientPageProps) {
   const theme = customerThemes[customerKey ?? ""];
-  const store = makeStore();
-  const state = store.getState();
 
-  const search = state.search.keyword;
+ const dispatch = useDispatch();
+  const search = useSelector((state: AppState) => state.search.keyword);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    store.dispatch(setSearchKeyword(e.target.value));
+    dispatch(setSearchKeyword(e.target.value));
   };
 
   const filteredProducts = mockProducts.filter((p: any) =>
     p.name.toLowerCase().includes(search.toLowerCase())
   );
-  const cartItems = state.cart.items;
+  const cartItems = useSelector((state: AppState) => state.cart.items);
   const totalItems = Object.values(cartItems).reduce(
     (sum, qty) => sum + qty,
     0
