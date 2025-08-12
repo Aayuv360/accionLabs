@@ -82,28 +82,22 @@ const mockProducts = [
   },
 ];
 
+import { mockProducts } from "@/components/ProductStaticData";
+
 async function fetchProducts(customerId: number) {
-  // try {
-  //   const res = await fetch(`https://localhost:7187/api/products?customerId=${customerId}`, { 
-  //     cache: 'no-store',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     }
-  //   });
-
-  //   if (!res.ok) {
-  //     throw new Error(`HTTP error! status: ${res.status}`);
-  //   }
-
-  //   const products = await res.json();
-  //   console.log('API products fetched successfully:', products);
-  //   return products;
-  // } catch (error) {
-  //   console.error('API fetch failed, using mock products:', error);
-  //   return mockProducts;
-  // }
-      return mockProducts;
-
+  try {
+    // For now, return mock products to avoid server-client state mismatch
+    // When API is ready, uncomment the fetch logic
+    const products = mockProducts.filter(product => {
+      // Filter products based on customer if needed
+      return true;
+    });
+    
+    return products;
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    return mockProducts;
+  }
 }
 
 export default async function ProductCatalog() {
@@ -113,5 +107,8 @@ export default async function ProductCatalog() {
   const customerId = customerKey === "globex" ? 2 : 1;
   const products = await fetchProducts(customerId);
 
-  return <ProductCatalogClientPage customerKey={customerKey} products={products} />;
+  // Ensure products is always an array to prevent filter errors
+  const safeProducts = Array.isArray(products) ? products : [];
+
+  return <ProductCatalogClientPage customerKey={customerKey} products={safeProducts} />;
 }

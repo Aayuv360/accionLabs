@@ -8,11 +8,12 @@ import { ReduxProvider } from '@/store/provider';
 interface ClientProvidersProps {
   children: React.ReactNode;
   customerKey: string;
+  initialReduxState?: any;
 }
 
-export default function ClientProviders({ children, customerKey }: ClientProvidersProps) {
+export default function ClientProviders({ children, customerKey, initialReduxState }: ClientProvidersProps) {
   return (
-    <ReduxProvider>
+    <ReduxProvider initialState={initialReduxState}>
       <CustomerProvider customerKey={customerKey}>
         {children}
       </CustomerProvider>
