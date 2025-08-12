@@ -1,5 +1,4 @@
 
-```typescript
 'use client';
 
 import React from 'react';
@@ -20,4 +19,3 @@ export default function ClientProviders({ children, customerKey }: ClientProvide
     </ReduxProvider>
   );
 }
-```

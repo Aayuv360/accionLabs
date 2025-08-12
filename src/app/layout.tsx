@@ -1,5 +1,4 @@
 
-```typescript
 import * as React from "react";
 import { cookies } from "next/headers";
 import ClientProviders from "@/components/ClientProviders";
@@ -26,4 +25,3 @@ export default async function RootLayout({
     </html>
   );
 }
-```
