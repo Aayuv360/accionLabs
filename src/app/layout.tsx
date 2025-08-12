@@ -3,17 +3,13 @@ import * as React from "react";
 import { cookies } from "next/headers";
 import ClientProviders from "@/components/ClientProviders";
 
-async function getCustomerKeyFromCookies(): Promise<string> {
-  const cookieStore = await cookies();
-  return cookieStore.get('session_customer')?.value || '';
-}
-
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const customerKey = await getCustomerKeyFromCookies();
+  const cookieStore = await cookies();
+  const customerKey = cookieStore.get('session_customer')?.value || '';
 
   return (
     <html lang="en">
