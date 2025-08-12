@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation"; 
+import { usePathname } from "next/navigation";
 import { customerThemes } from "../../utils/theme";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import HistoryOutlinedIcon from "@mui/icons-material/HistoryOutlined";
@@ -16,11 +16,11 @@ type Props = {
 
 export default function DashboardPage({ children }: Props) {
   const cookieStore = cookies();
-  const sessionCookie = cookieStore.get('session_customer');
+  const sessionCookie = cookieStore.get("session_customer");
   const customerKey = sessionCookie?.value || null;
 
   if (!customerKey) {
-    redirect('/login');
+    redirect("/login");
   }
 
   const theme = customerThemes[customerKey ?? ""];
@@ -28,7 +28,6 @@ export default function DashboardPage({ children }: Props) {
   const primaryColor = theme?.logoPrimaryColor ?? "#1976d2";
   const logoUrl = theme?.logoUrl ?? "";
   const router = usePathname();
-
 
   const navLinks = [
     {
@@ -92,9 +91,9 @@ export default function DashboardPage({ children }: Props) {
                   color:
                     router === link.href
                       ? primaryColor
-                      // : link.danger
-                      // ? "#c62828"
-                      : "#333",
+                      : // : link.danger
+                        // ? "#c62828"
+                        "#333",
 
                   textDecoration: "none",
                   fontWeight: 500,
@@ -112,11 +111,11 @@ export default function DashboardPage({ children }: Props) {
 
       <div
         style={{
-          flex:1,
+          flex: 1,
           display: "flex",
           flexDirection: "column",
           overflow: "hidden",
-          marginTop: "16px"
+          marginTop: "16px",
         }}
       >
         <CustomerProvider customerKey={customerKey}>
