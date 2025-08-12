@@ -1,3 +1,4 @@
+
 import { NextResponse } from "next/server";
 import { authenticate } from "@/utils/theme";
 import { serializeSessionCookie } from "@/lib/auth";
@@ -8,7 +9,7 @@ export async function POST(request: Request) {
     const username = formData.get("username")?.toString() || "";
     const password = formData.get("password")?.toString() || "";
 
-    console.log("Login attempt:", username); // Debug log
+    console.log("Login attempt:", username);
 
     const customerKey = authenticate(username, password);
     if (!customerKey) {
