@@ -84,37 +84,34 @@ const mockProducts = [
 ];
 
 async function fetchProducts(customerId: number) {
-  try {
-    // Try to fetch from API first
-    const res = await fetch(`https://localhost:7187/api/products?customerId=${customerId}`, { 
-      cache: 'no-store',
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    });
+  // try {
+  //   const res = await fetch(`https://localhost:7187/api/products?customerId=${customerId}`, { 
+  //     cache: 'no-store',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     }
+  //   });
 
-    if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
-    }
+  //   if (!res.ok) {
+  //     throw new Error(`HTTP error! status: ${res.status}`);
+  //   }
 
-    const products = await res.json();
-    console.log('API products fetched successfully:', products);
-    return products;
-  } catch (error) {
-    console.error('API fetch failed, using mock products:', error);
-    // Fallback to mock products if API fails
-    return mockProducts;
-  }
+  //   const products = await res.json();
+  //   console.log('API products fetched successfully:', products);
+  //   return products;
+  // } catch (error) {
+  //   console.error('API fetch failed, using mock products:', error);
+  //   return mockProducts;
+  // }
+      return mockProducts;
+
 }
 
 export default async function ProductCatalog() {
   const cookieStore = await cookies();
   const customerKey = cookieStore.get('session_customer')?.value || '';
 
-  // Determine customerId based on customerKey
   const customerId = customerKey === "globex" ? 2 : 1;
-
-  // Fetch products (now using mock data directly)
   const products = await fetchProducts(customerId);
 
   return <ProductCatalogClientPage customerKey={customerKey} products={products} />;

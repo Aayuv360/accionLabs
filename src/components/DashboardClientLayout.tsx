@@ -52,7 +52,6 @@ export default function DashboardClientLayout({ children, customerKey }: Props) 
           padding: "20px",
         }}
       >
-        {/* Logo */}
         <div style={{ marginBottom: "30px", textAlign: "center" }}>
           {logoUrl && (
             <img
@@ -61,7 +60,7 @@ export default function DashboardClientLayout({ children, customerKey }: Props) 
               style={{ height: "40px", marginBottom: "10px" }}
             />
           )}
-          <h3 style={{ color: primaryColor, margin: 0 }}>{customerName}</h3>
+          {/* <h3 style={{ color: primaryColor, margin: 0 }}>{customerName}</h3> */}
         </div>
 
         {/* Navigation */}
