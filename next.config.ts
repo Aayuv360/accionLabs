@@ -2,7 +2,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  devOrigins: ['*.replit.dev', '*.repl.co'],
+  experimental: {
+    serverActions: {
+      allowedOrigins: ['*.replit.dev', '*.repl.co'],
+    },
+  },
 };
 
 export default nextConfig;
