@@ -12,9 +12,9 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { customerThemes } from "@/utils/theme";
 import ProductCard, { Product } from "@/components/ProductCard";
 import { setSearchKeyword } from "@/store/slices/searchSlice";
-import { makeStore } from "@/store";
 import { useEffect, useState } from "react";
 import { getCustomerKeyFromCookies } from "@/lib/auth";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
 const mockProducts: Product[] = [
   {
@@ -117,20 +117,18 @@ export default function productCatalog() {
     }
 
     const theme = customerThemes[customerKey];
-    const store = makeStore();
-    const state = store.getState();
-
-    const search = state.search.keyword
+    const dispatch = useAppDispatch();
+    const search = useAppSelector((state) => state.search.keyword);
+    const cartItems = useAppSelector((state) => state.cart.items);
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        store.dispatch(setSearchKeyword(e.target.value))
-
+        dispatch(setSearchKeyword(e.target.value));
     };
 
     const filteredProducts = mockProducts.filter((p: any) =>
         p.name.toLowerCase().includes(search.toLowerCase())
     );
-    const cartItems = state.cart.items
+    
     const totalItems = Object.values(cartItems).reduce(
         (sum, qty) => sum + qty,
         0

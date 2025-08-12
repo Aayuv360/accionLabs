@@ -1,8 +1,15 @@
 "use client";
 import { Provider } from "react-redux";
-import { makeStore } from "@/store";
+import { configureStore } from "@reduxjs/toolkit";
+import rootReducer from "@/store/rootReducer";
 
-const store = makeStore();
+const store = configureStore({
+  reducer: rootReducer,
+  devTools: process.env.NODE_ENV !== "production",
+});
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
 export function ReduxProvider({ children }: { children: React.ReactNode }) {
   return <Provider store={store}>{children}</Provider>;

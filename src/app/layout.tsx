@@ -4,7 +4,6 @@
 import * as React from "react";
 import { CacheProvider } from "@emotion/react";
 import { ThemeProvider, CssBaseline, createTheme } from "@mui/material";
-import { Provider } from "react-redux";
 import createEmotionCache from "@/createEmotionCache";
 import { ReduxProvider } from "@/store/provider";
 
