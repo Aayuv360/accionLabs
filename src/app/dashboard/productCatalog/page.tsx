@@ -2,7 +2,6 @@ import React from "react";
 import { cookies } from "next/headers";
 import ProductCatalogClientPage from "@/components/ProductCatalogClientPage";
 
-// Mock products as fallback
 const mockProducts = [
   {
     id: "101",

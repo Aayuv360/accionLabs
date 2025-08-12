@@ -1,6 +1,5 @@
 
 import ProductStaticData from "./ProductStaticData";
-import Typography from '@mui/material/Typography';
 import { customerThemes } from "@/utils/theme";
 
 export default function ProductHistory({customerKey}:any) {

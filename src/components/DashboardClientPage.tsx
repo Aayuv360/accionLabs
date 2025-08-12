@@ -20,7 +20,7 @@ export default function DashboardClientPage({ customerKey }: DashboardClientPage
         Welcome to {customerName} Dashboard
       </Typography>
       <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Paper sx={{ p: 2 }}>
             <Typography variant="h6" gutterBottom>
               Quick Actions
@@ -41,7 +41,7 @@ export default function DashboardClientPage({ customerKey }: DashboardClientPage
             </Button>
           </Paper>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Paper sx={{ p: 2 }}>
             <Typography variant="h6" gutterBottom>
               Account Info
