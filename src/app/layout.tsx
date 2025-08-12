@@ -1,4 +1,3 @@
-
 import * as React from "react";
 import { cookies } from "next/headers";
 import ClientProviders from "@/components/ClientProviders";
@@ -10,12 +9,11 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const cookieStore = await cookies();
-  const customerKey = cookieStore.get('session_customer')?.value || '';
+  const customerKey = cookieStore.get("session_customer")?.value || "";
 
-  // Create initial Redux state that's safe for hydration
   const initialReduxState = createHydrationSafeState({
     cart: { items: [] },
-    search: { keyword: "" }
+    search: { keyword: "" },
   });
 
   return (
@@ -27,8 +25,11 @@ export default async function RootLayout({
           }}
         />
       </head>
-      <body style={{margin:0}}>
-        <ClientProviders customerKey={customerKey} initialReduxState={initialReduxState}>
+      <body style={{ margin: 0 }}>
+        <ClientProviders
+          customerKey={customerKey}
+          initialReduxState={initialReduxState}
+        >
           {children}
         </ClientProviders>
       </body>
