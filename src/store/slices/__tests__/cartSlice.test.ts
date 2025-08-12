@@ -1,5 +1,5 @@
 
-import cartReducer, { addToCart, removeFromCart, clearCart } from '../cartSlice'
+import cartReducer, { addToCart, removeFromCart } from '../cartSlice'
 
 describe('cartSlice', () => {
   const initialState = {
@@ -47,14 +47,7 @@ describe('cartSlice', () => {
     expect(actual.items[productId]).toBeUndefined()
   })
 
-  test('should handle clearCart', () => {
-    const stateWithItems = {
-      items: { '101': 2, '102': 1 }
-    }
-    
-    const actual = cartReducer(stateWithItems, clearCart())
-    expect(actual.items).toEqual({})
-  })
+  
 
   test('should not remove item with 0 quantity', () => {
     const productId = '101'

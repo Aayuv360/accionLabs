@@ -15,21 +15,6 @@ const mockTheme = {
   accentColor: '#00A6FB',
 }
 
-jest.mock('@/utils/theme', () => ({
-  customerThemes: {
-    hp: {
-      name: 'HP',
-      primaryColor: '#0096D6',
-      accentColor: '#00A6FB',
-    },
-    lenovo: {
-      name: 'Lenovo',
-      primaryColor: '#E2231A',
-      accentColor: '#FF6B6B',
-    },
-  },
-}))
-
 // Create a test store
 const createTestStore = (initialState = {}) => {
   return configureStore({
