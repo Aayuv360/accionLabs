@@ -23,6 +23,29 @@ export function clearSessionCookie(res: any) {
   res.setHeader("Set-Cookie", cookie);
 }
 
+
+export function serializeSessionCookie(customerKey: string) {
+  return serialize(COOKIE_NAME, customerKey, {
+    httpOnly: true,
+    path: "/",
+    maxAge: MAX_AGE,
+    sameSite: "lax"
+  });
+}
+
+export function getCustomerKeyFromCookies(): string | null {
+  if (typeof window === 'undefined') return null;
+  
+  const cookies = document.cookie.split(';').reduce((acc, cookie) => {
+    const [key, value] = cookie.trim().split('=');
+    acc[key] = value;
+    return acc;
+  }, {} as Record<string, string>);
+  
+  return cookies[COOKIE_NAME] || null;
+}
+
+
 export function getSessionCustomer(req: any): string | null {
   const cookies = req.headers.cookie ? parse(req.headers.cookie) : {};
   return cookies[COOKIE_NAME] || null;

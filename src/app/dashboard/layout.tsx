@@ -1,24 +1,41 @@
 'use client'
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname, } from "next/navigation"; 
+import { usePathname } from "next/navigation"; 
 import { customerThemes } from "../../utils/theme";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import HistoryOutlinedIcon from "@mui/icons-material/HistoryOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import { getCustomerKeyFromCookies } from "@/lib/auth";
 
 type Props = {
   children: ReactNode;
-  customerKey: string;
 };
 
 export default function DashboardPage({ children }: Props) {
-  const customerKey='globex'
+  const [customerKey, setCustomerKey] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const key = getCustomerKeyFromCookies();
+    setCustomerKey(key);
+    setLoading(false);
+  }, []);
+
   const theme = customerThemes[customerKey ?? ""];
   const customerName = theme?.name ?? "";
   const primaryColor = theme?.logoPrimaryColor ?? "#1976d2";
   const logoUrl = theme?.logoUrl ?? "";
   const router = usePathname();
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!customerKey) {
+    window.location.href = "/login";
+    return null;
+  }
 
   const navLinks = [
     {
@@ -85,7 +102,7 @@ export default function DashboardPage({ children }: Props) {
                       // : link.danger
                       // ? "#c62828"
                       : "#333",
-               
+
                   textDecoration: "none",
                   fontWeight: 500,
                   transition: "all 0.3s ease",
