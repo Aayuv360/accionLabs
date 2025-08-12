@@ -1,14 +1,11 @@
-
-'use client'
+"use client";
 //src/app/layout.tsx
-
 
 import * as React from "react";
 import { CacheProvider } from "@emotion/react";
 import { ThemeProvider, CssBaseline, createTheme } from "@mui/material";
 import { Provider } from "react-redux";
 import createEmotionCache from "@/createEmotionCache";
-import { makeStore } from "@/store";
 import { ReduxProvider } from "@/store/provider";
 
 const clientSideEmotionCache = createEmotionCache();
@@ -19,10 +16,12 @@ const theme = createTheme({
     secondary: { main: "#19857b" },
   },
 });
-const store = makeStore()
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body>
@@ -31,7 +30,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <ThemeProvider theme={theme}>
               <CssBaseline />
               {children}
-            </ThemeProvider></ReduxProvider>
+            </ThemeProvider>
+          </ReduxProvider>
         </CacheProvider>
       </body>
     </html>
