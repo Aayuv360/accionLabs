@@ -1,8 +1,15 @@
-export default function DashboardHome() {
-  return (
-    <>
-      <h1>Dashboard Overview</h1>
-      <p>This is your main dashboard overview content.</p>
-    </>
-  );
+
+import React from "react";
+import { cookies } from "next/headers";
+import DashboardClientPage from "@/components/DashboardClientPage";
+
+function getCustomerKeyFromCookies(): string {
+  const cookieStore = cookies();
+  return cookieStore.get('session_customer')?.value || '';
+}
+
+export default function Dashboard() {
+  const customerKey = getCustomerKeyFromCookies();
+  
+  return <DashboardClientPage customerKey={customerKey} />;
 }
