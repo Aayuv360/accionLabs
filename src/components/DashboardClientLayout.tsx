@@ -42,34 +42,30 @@ export default function DashboardClientLayout({ children, customerKey }: Props) 
   ];
 
   return (
-    <div
-      style={{
-        display: "flex",
-        height: "100vh",
-        fontFamily: "system-ui, sans-serif",
-        background: "#fafafa",
-      }}
-    >
-      <aside
+    <div style={{ display: "flex", height: "100vh" }}>
+      {/* Sidebar */}
+      <div
         style={{
-          width: 240,
-          padding: "30px 20px",
-          background: "#fff",
+          width: "250px",
+          backgroundColor: "#f5f5f5",
           borderRight: "1px solid #e0e0e0",
-          boxSizing: "border-box",
-          flexShrink: 0,
-          display: "flex",
-          flexDirection: "column",
+          padding: "20px",
         }}
       >
-        <div style={{ marginBottom: 40, textAlign: "center" }}>
-          <img
-            src={logoUrl}
-            alt={`${customerName} Logo`}
-            style={{ maxWidth: "100%", height: 60, objectFit: "contain" }}
-          />
+        {/* Logo */}
+        <div style={{ marginBottom: "30px", textAlign: "center" }}>
+          {logoUrl && (
+            <img
+              src={logoUrl}
+              alt={customerName}
+              style={{ height: "40px", marginBottom: "10px" }}
+            />
+          )}
+          <h3 style={{ color: primaryColor, margin: 0 }}>{customerName}</h3>
         </div>
-        <nav style={{ flex: 1 }}>
+
+        {/* Navigation */}
+        <nav>
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -77,32 +73,24 @@ export default function DashboardClientLayout({ children, customerKey }: Props) 
               style={{
                 display: "flex",
                 alignItems: "center",
-                padding: "10px 14px",
-                borderRadius: 8,
-                marginBottom: 10,
-                color: pathname === link.href ? primaryColor : "#333",
+                padding: "12px 16px",
+                margin: "8px 0",
                 textDecoration: "none",
-                fontWeight: 500,
-                transition: "all 0.3s ease",
-                gap: 10,
+                color: pathname === link.href ? primaryColor : "#666",
+                backgroundColor: pathname === link.href ? "#f0f0f0" : "transparent",
+                borderRadius: "8px",
+                fontWeight: pathname === link.href ? "600" : "normal",
               }}
             >
-              {link.icon}
-              <span>{link.label}</span>
+              <span style={{ marginRight: "12px" }}>{link.icon}</span>
+              {link.label}
             </Link>
           ))}
         </nav>
-      </aside>
+      </div>
 
-      <div
-        style={{
-          flex: 1,
-          display: "flex",
-          flexDirection: "column",
-          overflow: "hidden",
-          marginTop: "16px",
-        }}
-      >
+      {/* Main Content */}
+      <div style={{ flex: 1, overflow: "hidden" }}>
         {children}
       </div>
     </div>
