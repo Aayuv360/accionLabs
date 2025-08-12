@@ -13,7 +13,6 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { customerThemes } from "@/utils/theme";
-import { useCustomer } from "@/contexts/CustomerContext";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "@/store/slices/cartSlice";
 import { AppState } from "@/store";
@@ -30,23 +29,22 @@ export interface Product {
 
 interface Props {
   product: Product;
+  customerKey: string;
 }
 
-export default function ProductCard({ product }: Props) {
-  const { customerKey } = useCustomer();
+export default function ProductCard({ product, customerKey }: Props) {
   const theme = customerThemes[customerKey ?? ""];
   const primaryColor = theme?.primaryColor ?? "";
 
   const [hover, setHover] = useState(false);
 
- 
-const dispatch = useDispatch();
-const cartQuantity = useSelector(
-  (state: AppState) => state.cart.items[product.id] || 0
-);
+  const dispatch = useDispatch();
+  const cartQuantity = useSelector(
+    (state: AppState) => state.cart.items[product.id] || 0
+  );
 
-const handleIncrement = () => dispatch(addToCart(product.id));
-const handleDecrement = () => dispatch(removeFromCart(product.id));
+  const handleIncrement = () => dispatch(addToCart(product.id));
+  const handleDecrement = () => dispatch(removeFromCart(product.id));
 
   return (
     <Card
@@ -99,10 +97,9 @@ const handleDecrement = () => dispatch(removeFromCart(product.id));
             theme?.name !== "Lenovo"
               ? "linear-gradient(to bottom, rgba(166, 198, 210, 0.8), rgba(0, 160, 220, 0))"
               : "linear-gradient(to bottom, rgba(208, 172, 172, 0.8), rgba(241, 119, 121, 0))",
-       
         }}
-      >        
-         <Tooltip title={product.name} arrow>
+      >
+        <Tooltip title={product.name} arrow>
           <Typography
             variant="body2"
             sx={{
@@ -154,10 +151,10 @@ const handleDecrement = () => dispatch(removeFromCart(product.id));
 
           {cartQuantity === 0 ? (
             <Button
-            size="small"
+              size="small"
               variant="contained"
               startIcon={<ShoppingCartIcon />}
-    onClick={handleIncrement}
+              onClick={handleIncrement}
               sx={{
                 backgroundColor: primaryColor,
                 color: "#fff",
@@ -195,7 +192,6 @@ const handleDecrement = () => dispatch(removeFromCart(product.id));
               </Button>
 
               <Button
-                
                 sx={{
                   backgroundColor: primaryColor,
                   color: "#fff",
@@ -206,7 +202,7 @@ const handleDecrement = () => dispatch(removeFromCart(product.id));
                   },
                 }}
               >
-      {cartQuantity}
+                {cartQuantity}
               </Button>
 
               <Button

@@ -1,14 +1,10 @@
-'use client';
 
 import ProductStaticData from "./ProductStaticData";
 import Typography from '@mui/material/Typography';
 import { customerThemes } from "@/utils/theme";
-import { useCustomer } from "@/contexts/CustomerContext";
 
-export default function ProductHistory() {
-  const { customerKey } = useCustomer();
+export default function ProductHistory({customerKey}:any) {
   const theme = customerThemes[customerKey];
- console.log("theme >>>>> :", theme);
   return (
     <div
       style={{
@@ -19,11 +15,10 @@ export default function ProductHistory() {
         fontFamily: "system-ui, sans-serif",
       }}
     >
-      {/* <h3>Hello, {name} </h3> */}
-      
-        <Typography sx={{ color: "text.secondary", fontWeight: "bold" }} variant="h6">
+     
+        {/* <Typography sx={{ color: "text.secondary", fontWeight: "bold" }} variant="h6">
           Products history :
-        </Typography> 
+        </Typography>  */}
       
       <ProductStaticData />
 </div>);

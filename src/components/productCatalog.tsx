@@ -95,8 +95,7 @@ const mockProducts: Product[] = [
   },
 ];
 
-export default function productCatalog() {
-    const customerKey='globex'
+export default function productCatalog({}) {
 
   if (!customerKey) {
     return {
@@ -118,6 +117,7 @@ export default function productCatalog() {
     p.name.toLowerCase().includes(search.toLowerCase())
   );
   const cartItems = useSelector((state: AppState) => state.cart.items);
+  console.log(cartItems)
   const totalItems = Object.values(cartItems).reduce(
     (sum, qty) => sum + qty,
     0
