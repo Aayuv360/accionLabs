@@ -42,7 +42,7 @@ export default function DashboardClientLayout({ children, customerKey }: Props) 
   ];
 
   return (
-    <div style={{ display: "flex", height: "100vh" }}>
+    <div className="dashboard-container">
       {/* Sidebar */}
       <div
         style={{

@@ -9,3 +9,8 @@ body {
 * {
   box-sizing: border-box;
 }
+
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+}
