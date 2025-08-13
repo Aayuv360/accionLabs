@@ -99,15 +99,16 @@ export default async function ProductCatalog() {
   const customerKey = cookieStore.get("session_customer")?.value || "";
 
   const customerId = customerKey === "globex" ? 2 : 1;
-  const products = await fetchProducts(customerId);
-
-  // Ensure products is always an array to prevent filter errors
-  const safeProducts = Array.isArray(products) ? products : [];
+  
+  // Use static data for better performance
+  const products = mockProducts.filter(product => 
+    customerId === 2 ? product.customerId === 2 : product.customerId === 1
+  );
 
   return (
     <ProductCatalogClientPage
       customerKey={customerKey}
-      products={safeProducts}
+      products={products}
     />
   );
 }

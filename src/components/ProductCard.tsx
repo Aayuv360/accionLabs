@@ -32,7 +32,7 @@ interface Props {
   customerKey: string;
 }
 
-export default function ProductCard({ product, customerKey }: Props) {
+const ProductCard = React.memo(function ProductCard({ product, customerKey }: Props) {
   const theme = customerThemes[customerKey ?? ""];
   const primaryColor = theme?.primaryColor ?? "";
 
@@ -248,4 +248,6 @@ export default function ProductCard({ product, customerKey }: Props) {
       </Box>
     </Card>
   );
-}
+});
+
+export default ProductCard;
