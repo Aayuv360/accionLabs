@@ -2,7 +2,7 @@
 import { NextResponse } from "next/server";
 import { serialize } from "cookie";
 
-export async function POST() {
+function handleLogout() {
   const cookie = serialize("session_customer", "", {
     httpOnly: true,
     path: "/",
@@ -14,4 +14,12 @@ export async function POST() {
   response.headers.set("Set-Cookie", cookie);
   
   return response;
+}
+
+export async function GET() {
+  return handleLogout();
+}
+
+export async function POST() {
+  return handleLogout();
 }
