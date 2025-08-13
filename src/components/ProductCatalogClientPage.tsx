@@ -1,12 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useMemo, useCallback } from "react";
 import { Box, Stack, TextField, Badge, Typography, Grid } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { customerThemes } from "@/utils/theme";
 import ProductCard, { Product } from "@/components/ProductCard";
 import { setSearchKeyword } from "@/store/slices/searchSlice";
 import { AppState, makeStore } from "@/store";
+import { selectCartTotalItems, selectSearchKeyword } from "@/store/selectors";
 import { useDispatch, useSelector } from "react-redux";
 
 interface ProductCatalogClientPageProps {
@@ -14,28 +15,28 @@ interface ProductCatalogClientPageProps {
   products: Product[];
 }
 
-export default function ProductCatalogClientPage({
+const ProductCatalogClientPage = React.memo(function ProductCatalogClientPage({
   customerKey,
   products,
 }: ProductCatalogClientPageProps) {
-  const theme = customerThemes[customerKey ?? ""];
+  const theme = useMemo(() => customerThemes[customerKey ?? ""], [customerKey]);
 
   const dispatch = useDispatch();
-  const search = useSelector((state: AppState) => state.search.keyword);
+  const search = useSelector(selectSearchKeyword);
+  const totalItems = useSelector(selectCartTotalItems);
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearchKeyword(e.target.value));
-  };
+  }, [dispatch]);
 
-  const filteredProducts = (products || []).filter((product) => {
-    if (!product?.name) return false;
-    return product.name.toLowerCase().includes(search.toLowerCase());
-  });
-  const cartItems = useSelector((state: AppState) => state.cart.items);
-  const totalItems = Object.values(cartItems).reduce(
-    (sum, qty) => sum + qty,
-    0
-  );
+  const filteredProducts = useMemo(() => {
+    return (products || []).filter((product) => {
+      if (!product?.name) return false;
+      return product.name.toLowerCase().includes(search.toLowerCase());
+    });
+  }, [products, search]);
+
+  
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
@@ -127,4 +128,6 @@ export default function ProductCatalogClientPage({
       </Box>
     </Box>
   );
-}
+});
+
+export default ProductCatalogClientPage;

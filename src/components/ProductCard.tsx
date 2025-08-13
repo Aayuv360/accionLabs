@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import {
   Card,
   CardMedia,
@@ -33,8 +33,8 @@ interface Props {
 }
 
 const ProductCard = React.memo(function ProductCard({ product, customerKey }: Props) {
-  const theme = customerThemes[customerKey ?? ""];
-  const primaryColor = theme?.primaryColor ?? "";
+  const theme = useMemo(() => customerThemes[customerKey ?? ""], [customerKey]);
+  const primaryColor = useMemo(() => theme?.primaryColor ?? "", [theme]);
 
   const [hover, setHover] = useState(false);
 
@@ -43,8 +43,12 @@ const ProductCard = React.memo(function ProductCard({ product, customerKey }: Pr
     (state: AppState) => state.cart.items[product.id] || 0
   );
 
-  const handleIncrement = () => dispatch(addToCart(product.id));
-  const handleDecrement = () => dispatch(removeFromCart(product.id));
+  const handleIncrement = useCallback(() => dispatch(addToCart(product.id)), [dispatch, product.id]);
+  const handleDecrement = useCallback(() => dispatch(removeFromCart(product.id)), [dispatch, product.id]);
+
+  const imageUrl = useMemo(() => {
+    return product.imageUrl || (theme?.name === "Lenovo" ? "/lenovoLaptop.jpg" : "/HPLaptop.jpg");
+  }, [product.imageUrl, theme?.name]);
 
   return (
     <Card
@@ -75,10 +79,7 @@ const ProductCard = React.memo(function ProductCard({ product, customerKey }: Pr
       >
         <CardMedia
           component="img"
-          image={
-            product.imageUrl ||
-            (theme?.name === "Lenovo" ? "/lenovoLaptop.jpg" : "/HPLaptop.jpg")
-          }
+          image={imageUrl}
           alt={product.name}
           sx={{
             width: "100%",
