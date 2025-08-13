@@ -1,9 +1,8 @@
+
 import { NextResponse } from "next/server";
 import { serialize } from "cookie";
 
 export async function POST() {
-  const res = NextResponse.redirect("/login");
-
   const cookie = serialize("session_customer", "", {
     httpOnly: true,
     path: "/",
@@ -11,6 +10,8 @@ export async function POST() {
     sameSite: "lax",
   });
 
-  res.headers.set("Set-Cookie", cookie);
-  return res;
+  const response = NextResponse.redirect(new URL("/login", process.env.NEXTAUTH_URL || "http://localhost:3000"));
+  response.headers.set("Set-Cookie", cookie);
+  
+  return response;
 }
