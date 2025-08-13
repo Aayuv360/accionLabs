@@ -9,13 +9,14 @@ const mockProducts = [
     description: "High-performance business laptop with Intel Core i7",
     price: 1299,
     customerId: 1,
+    imageUrl:'https://cdn.mos.cms.futurecdn.net/KTH6Fewoj2jMTN7J98GwWU-1600-80.png.webp'
   },
   {
     id: "102",
     name: "HP Pavilion Gaming Laptop",
     description: "Gaming laptop with NVIDIA GTX 1650 and AMD Ryzen 5",
     price: 899,
-    customerId: 1,
+    customerId: 1,imageUrl:'https://cdn.mos.cms.futurecdn.net/V4yVRFs3gSs5yNoTL7FbHa-1920-80.jpg.webp'
   },
   {
     id: "103",
@@ -23,6 +24,7 @@ const mockProducts = [
     description: "Premium 2-in-1 laptop with touchscreen and stylus support",
     price: 1599,
     customerId: 1,
+    imageUrl:'https://cdn.mos.cms.futurecdn.net/k5wH3vTcMKhvXnqFipvxq7-1920-80.jpg.webp'
   },
   {
     id: "104",
@@ -30,34 +32,17 @@ const mockProducts = [
     description: "High-end gaming laptop with Intel Core i9 and RTX 3080",
     price: 2499,
     customerId: 1,
+    imageUrl:'https://cdn.mos.cms.futurecdn.net/35PESCiiEQereFgUwdtTVo-1920-80.jpg.webp'
   },
-  {
-    id: "201",
-    name: "Dell XPS 13 Plus",
-    description: "Ultra-portable laptop with stunning InfinityEdge display",
-    price: 1199,
-    customerId: 3,
-  },
-  {
-    id: "202",
-    name: "Dell Inspiron 15 3000",
-    description: "Affordable laptop for everyday computing needs",
-    price: 549,
-    customerId: 3,
-  },
-  {
-    id: "203",
-    name: "Dell Alienware m15 R7",
-    description: "Premium gaming laptop with advanced cooling system",
-    price: 2199,
-    customerId: 3,
-  },
+
   {
     id: "204",
     name: "Lenovo ThinkPad X1 Carbon Gen 11",
     description: "Ultra-light premium business laptop with Intel Core i7",
     price: 1899,
-    customerId: 2,
+    customerId: 2,   
+     imageUrl:'https://cdn.mos.cms.futurecdn.net/JxTny3DjvfUWipaUunt5vd-1920-80.jpg.webp'
+
   },
   {
     id: "205",
@@ -65,6 +50,7 @@ const mockProducts = [
     description: "Sleek business laptop with AMD Ryzen 5 and FHD screen",
     price: 799,
     customerId: 2,
+    imageUrl:'https://cdn.mos.cms.futurecdn.net/rbrdgJLVM6WtLmqjTJkJmc-1920-80.jpg.webp'
   },
   {
     id: "206",
@@ -72,6 +58,7 @@ const mockProducts = [
     description: "Entry-level laptop with Intel Core i3 and 8GB RAM",
     price: 429,
     customerId: 2,
+    imageUrl:'https://cdn.mos.cms.futurecdn.net/7a62AyjLVw82mnwRLmi2U-1920-80.jpg.webp'
   },
   {
     id: "207",
@@ -79,6 +66,7 @@ const mockProducts = [
     description: "Slim gaming laptop with AMD Ryzen 9 and RTX 4070",
     price: 1799,
     customerId: 2,
+    imageUrl:'https://cdn.mos.cms.futurecdn.net/cH3HaUSrwGGXVoHhayEgzS-1920-80.jpg.webp'
   },
 ];
 
