@@ -1,66 +1,50 @@
-import { redirect } from "next/navigation";
+import { Box, Button, Container, TextField, Typography, Paper } from '@mui/material';
+import { Metadata } from 'next';
 
-export default function LoginPage(){
+export const metadata: Metadata = {
+  title: 'Login',
+};
 
+export default function LoginPage() {
   return (
-    <div
-      style={{
-        maxWidth: 400,
-        margin: "100px auto",
-        padding: 30,
-        border: "1px solid #ccc",
-        borderRadius: 8,
-        fontFamily: "system-ui, sans-serif",
-      }}
-    >
-      <h2 style={{ textAlign: "center" }}>Login</h2>
-
-      <form method="POST" action="/api/login">
-        <div style={{ marginBottom: 12 }}>
-          <label>
-            Username
-            <input
-              name="username"
-              required
-              style={{ width: "100%", padding: 8, marginTop: 4 }}
-            />
-          </label>
-        </div>
-
-        <div style={{ marginBottom: 12 }}>
-          <label>
-            Password
-            <input
-              name="password"
-              type="password"
-              required
-              style={{ width: "100%", padding: 8, marginTop: 4 }}
-            />
-          </label>
-        </div>
-
-       
-
-        <button
-          type="submit"
-          style={{
-            width: "100%",
-            padding: 10,
-            background: "#2563eb",
-            color: "#fff",
-            border: "none",
-            borderRadius: 4,
-            cursor: "pointer",
-          }}
-        >
+    <Container maxWidth="sm">
+      <Paper elevation={3} sx={{ mt: 12, p: 4, borderRadius: 2 }}>
+        <Typography variant="h5" align="center" gutterBottom>
           Login
-        </button>
-      </form>
+        </Typography>
 
-      <div style={{ marginTop: 16, fontSize: 12 }}>
-        Use username <strong>hpuser</strong> (hp) or{" "}
-        <strong>lenovouser</strong> (lenovo). Password any.
-      </div>
-    </div>
+        <Box component="form" method="POST" action="/api/login" noValidate>
+          <TextField
+            name="username"
+            label="User Name"
+            fullWidth
+            required
+            margin="normal"
+          />
+          <TextField
+            name="password"
+            label="Password"
+            type="password"
+            fullWidth
+            required
+            margin="normal"
+          />
+
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            fullWidth
+            sx={{ mt: 2 }}
+          >
+            Login
+          </Button>
+        </Box>
+
+        <Typography variant="body2" sx={{ mt: 2 }}>
+          Use username <strong>hpuser</strong> (hp) or <strong>lenovouser</strong> (lenovo). Password any.
+        </Typography>
+      </Paper>
+    </Container>
   );
 }

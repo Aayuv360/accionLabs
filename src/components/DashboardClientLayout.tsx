@@ -64,15 +64,14 @@ export default function DashboardClientLayout({ children, customerKey }: Props) 
                   cursor: "pointer",
                   transition: "opacity 0.2s ease"
                 }}
-                onMouseOver={(e) => e.target.style.opacity = "0.8"}
-                onMouseOut={(e) => e.target.style.opacity = "1"}
+                onMouseOver={(e) => ((e.target as HTMLImageElement).style.opacity = "0.8")}
+                onMouseOut={(e) => (e.target as HTMLImageElement).style.opacity = "1"}
               />
             </Link>
           )}
           {/* <h3 style={{ color: primaryColor, margin: 0 }}>{customerName}</h3> */}
         </div>
 
-        {/* Navigation */}
         <nav>
           {navLinks.map((link) => (
             <Link

@@ -83,6 +83,26 @@ const mockProducts = [
 ];
 
 async function fetchProducts(customerId: number) {
+
+  // try {
+  //   const res = await fetch(`https://localhost:7187/api/products?customerId=${customerId}`, { 
+  //     cache: 'no-store',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     }
+  //   });
+    
+  //   if (!res.ok) {
+  //     throw new Error(`HTTP error! status: ${res.status}`);
+  //   }
+    
+  //   const products = await res.json();
+  //   console.log('API products fetched successfully:', products);
+  //   return products;
+  // } catch (error) {
+  //   console.error('API fetch failed, using mock products:', error);
+  //   return mockProducts;
+  // }
   return mockProducts;
 }
 
