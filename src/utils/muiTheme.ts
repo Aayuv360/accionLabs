@@ -1,26 +1,12 @@
+import { createTheme } from "@mui/material/styles";
 
-import { createTheme } from '@mui/material/styles';
-
-export const muiTheme = createTheme({
+const muiTheme = createTheme({
   palette: {
     primary: {
-      main: '#1976d2',
+      main: "#1976d2",
     },
     secondary: {
-      main: '#dc004e',
-    },
-  },
-  typography: {
-    fontFamily: 'Roboto, Arial, sans-serif',
-  },
-  components: {
-    MuiCssBaseline: {
-      styleOverrides: {
-        body: {
-          margin: 0,
-          padding: 0,
-        },
-      },
+      main: "#dc004e",
     },
   },
 });

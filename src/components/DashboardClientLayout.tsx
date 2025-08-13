@@ -1,5 +1,4 @@
-
-'use client';
+"use client";
 
 import React, { ReactNode } from "react";
 import Link from "next/link";
@@ -14,7 +13,10 @@ type Props = {
   customerKey: string;
 };
 
-export default function DashboardClientLayout({ children, customerKey }: Props) {
+export default function DashboardClientLayout({
+  children,
+  customerKey,
+}: Props) {
   const pathname = usePathname();
 
   const theme = customerThemes[customerKey];
@@ -42,7 +44,7 @@ export default function DashboardClientLayout({ children, customerKey }: Props) 
   ];
 
   return (
-    <div className="dashboard-container">
+    <div style={{ display: "flex", height: "100vh" }}>
       {/* Sidebar */}
       <div
         style={{
@@ -58,14 +60,18 @@ export default function DashboardClientLayout({ children, customerKey }: Props) 
               <img
                 src={logoUrl}
                 alt={customerName}
-                style={{ 
-                  height: "40px", 
+                style={{
+                  height: "40px",
                   marginBottom: "10px",
                   cursor: "pointer",
-                  transition: "opacity 0.2s ease"
+                  transition: "opacity 0.2s ease",
                 }}
-                onMouseOver={(e) => ((e.target as HTMLImageElement).style.opacity = "0.8")}
-                onMouseOut={(e) => (e.target as HTMLImageElement).style.opacity = "1"}
+                onMouseOver={(e) =>
+                  ((e.target as HTMLImageElement).style.opacity = "0.8")
+                }
+                onMouseOut={(e) =>
+                  ((e.target as HTMLImageElement).style.opacity = "1")
+                }
               />
             </Link>
           )}
@@ -84,7 +90,8 @@ export default function DashboardClientLayout({ children, customerKey }: Props) 
                 margin: "8px 0",
                 textDecoration: "none",
                 color: pathname === link.href ? primaryColor : "#666",
-                backgroundColor: pathname === link.href ? "#f0f0f0" : "transparent",
+                backgroundColor:
+                  pathname === link.href ? "#f0f0f0" : "transparent",
                 borderRadius: "8px",
                 fontWeight: pathname === link.href ? "600" : "normal",
               }}
@@ -97,9 +104,7 @@ export default function DashboardClientLayout({ children, customerKey }: Props) 
       </div>
 
       {/* Main Content */}
-      <div style={{ flex: 1, overflow: "hidden" }}>
-        {children}
-      </div>
+      <div style={{ flex: 1, overflow: "hidden" }}>{children}</div>
     </div>
   );
 }
