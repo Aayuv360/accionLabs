@@ -1,12 +1,11 @@
+"use client";
 
-'use client';
-
-import React from 'react';
-import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import { CustomerProvider } from '@/contexts/CustomerContext';
-import { ReduxProvider } from '@/store/provider';
-import { muiTheme } from '@/utils/theme';
+import React from "react";
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import { CustomerProvider } from "@/contexts/CustomerContext";
+import { ReduxProvider } from "@/store/provider";
+import { muiTheme } from "@/utils/muiTheme";
 
 interface ClientProvidersProps {
   children: React.ReactNode;
@@ -14,7 +13,11 @@ interface ClientProvidersProps {
   initialReduxState?: any;
 }
 
-export default function ClientProviders({ children, customerKey, initialReduxState }: ClientProvidersProps) {
+export default function ClientProviders({
+  children,
+  customerKey,
+  initialReduxState,
+}: ClientProvidersProps) {
   return (
     <ThemeProvider theme={muiTheme}>
       <CssBaseline />
