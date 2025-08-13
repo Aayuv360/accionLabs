@@ -1,11 +1,7 @@
 import * as React from "react";
 import { cookies } from "next/headers";
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
-import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
 import ClientProviders from "@/components/ClientProviders";
 import { createHydrationSafeState } from "@/lib/serverState";
-import theme from "@/utils/theme.js";
 
 export default async function RootLayout({
   children,
@@ -24,17 +20,12 @@ export default async function RootLayout({
     <html lang="en">
       <head></head>
       <body style={{ margin: 0 }}>
-        <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <ClientProviders
-              customerKey={customerKey}
-              initialReduxState={initialReduxState}
-            >
-              {children}
-            </ClientProviders>
-          </ThemeProvider>
-        </AppRouterCacheProvider>
+        <ClientProviders
+          customerKey={customerKey}
+          initialReduxState={initialReduxState}
+        >
+          {children}
+        </ClientProviders>
       </body>
     </html>
   );
