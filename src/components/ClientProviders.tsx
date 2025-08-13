@@ -6,6 +6,7 @@ import { CssBaseline } from "@mui/material";
 import { CustomerProvider } from "@/contexts/CustomerContext";
 import { ReduxProvider } from "@/store/provider";
 import muiTheme from "@/utils/muiTheme";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 
 interface ClientProvidersProps {
   children: React.ReactNode;
@@ -19,13 +20,15 @@ export default function ClientProviders({
   initialReduxState,
 }: ClientProvidersProps) {
   return (
-    <ThemeProvider theme={muiTheme}>
-      <CssBaseline />
-      <ReduxProvider initialState={initialReduxState}>
-        <CustomerProvider customerKey={customerKey}>
-          {children}
-        </CustomerProvider>
-      </ReduxProvider>
-    </ThemeProvider>
+    <AppRouterCacheProvider>
+      <ThemeProvider theme={muiTheme}>
+        <CssBaseline />
+        <ReduxProvider initialState={initialReduxState}>
+          <CustomerProvider customerKey={customerKey}>
+            {children}
+          </CustomerProvider>
+        </ReduxProvider>
+      </ThemeProvider>
+    </AppRouterCacheProvider>
   );
 }
