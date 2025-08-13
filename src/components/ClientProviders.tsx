@@ -22,7 +22,9 @@ export default function ClientProviders({
     <ThemeProvider theme={muiTheme}>
       <CssBaseline />
       <ReduxProvider initialState={initialReduxState}>
-        <CustomerProvider customerKey={customerKey}>{children}</CustomerProvider>
+        <CustomerProvider customerKey={customerKey}>
+          {children}
+        </CustomerProvider>
       </ReduxProvider>
     </ThemeProvider>
   );
