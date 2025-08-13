@@ -5,7 +5,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import ClientProviders from "@/components/ClientProviders";
 import { createHydrationSafeState } from "@/lib/serverState";
-import theme from "@/utils/theme";
+import theme from "@/utils/theme.js";
 
 export default async function RootLayout({
   children,
